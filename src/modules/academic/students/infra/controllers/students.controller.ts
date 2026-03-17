@@ -19,14 +19,14 @@ export class StudentsController {
   constructor(
     private readonly createStudentService: CreateStudentService,
     private readonly editStudentService: EditStudentService,
-    private readonly listStudentService: ListStudentsService,
+    private readonly listStudentsService: ListStudentsService,
     private readonly returnStudentService: ReturnStudentService,
     private readonly removeStudentService: RemoveStudentService,
   ) {}
 
   @Get()
   async findAll() {
-    return this.listStudentService.execute();
+    return this.listStudentsService.execute();
   }
 
   @Get(":id")
