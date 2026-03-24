@@ -4,6 +4,8 @@ import { EditTeacherService } from "@academic/teachers/application/services/edit
 import { ListTeachersService } from "@academic/teachers/application/services/list-teachers.service";
 import { RemoveTeacherService } from "@academic/teachers/application/services/remove-teacher.service";
 import { ReturnTeacherService } from "@academic/teachers/application/services/return-teacher.service";
+import { RequirePermissions } from "src/shared/infra/decorators/permissions.decorator";
+import { Permission } from "src/shared/domain/enums/permission.enum";
 import {
   Body,
   Controller,
@@ -24,10 +26,11 @@ export class TeachersController {
     private readonly removeTeacherService: RemoveTeacherService,
   ) {}
 
-  @Get()
-  async findAll() {
-    return this.listTeachersService.execute();
-  }
+@Get()
+@RequirePermissions(Permission.TEACHERS_READ)
+async findAll() {
+  return this.listTeachersService.execute();
+}
 
   @Get(":id")
   async findById(@Param("id") id: string) {
